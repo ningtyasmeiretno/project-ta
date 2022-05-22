@@ -9,7 +9,7 @@ class Report extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id_status', 'id_kendaraan', 'trayek', 'id_terminal','tgl', 'jam', 'id_operator'
+        'id_status_report', 'id_kendaraan', 'trayek', 'id_terminal','tgl', 'jam', 'id_operator'
     ];
     public function get_kendaraan()
     {

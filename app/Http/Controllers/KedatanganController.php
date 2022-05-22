@@ -37,7 +37,8 @@ class KedatanganController extends Controller
     ->join("terminals", "reports.id_terminal", "=", "terminals.id")
     ->join("perusahaans", "kendaraans.id_perusahaan", "=", "perusahaans.id")
     ->join("users", "reports.id_operator", "=", "users.id")
-    ->where("id_status", "=", 1)
+    // ->join("users", "reports.id_status", "=", "users.id")
+    ->where("id_status_report", "=", 1)
     ->paginate(20);
         //make response json
         
@@ -62,7 +63,8 @@ class KedatanganController extends Controller
         ->join("terminals", "reports.id_terminal", "=", "terminals.id")
         ->join("perusahaans", "kendaraans.id_perusahaan", "=", "perusahaans.id")
         ->join("users", "reports.id_operator", "=", "users.id")
-        ->where("id_status", "=", 1)
+        // ->join("users", "reports.id_status", "=", "users.id")
+        ->where("id_status_report", "=", 1)
         ->where('id_operator', auth()->guard('user-api')->user()->id)
         ->paginate(20);
         //make response JSON
@@ -78,7 +80,7 @@ class KedatanganController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id_status' => 'required',
+            'id_status_report' => 'required',
             'id_kendaraan' => 'required',
             'trayek' => 'required',
             'id_terminal' => 'required',
@@ -94,7 +96,7 @@ class KedatanganController extends Controller
 
         //save to DB
         $kedatangan = Report::create([
-            'id_status' => $request -> id_status,
+            'id_status_report' => $request -> id_status_report,
             'id_kendaraan' => $request->id_kendaraan,
             'trayek' => $request->trayek,
             'id_terminal' => $request->id_terminal,
@@ -124,7 +126,7 @@ class KedatanganController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            // 'id_status' => 'required',
+            // 'id_status_report' => 'required',
             'id_kendaraan' => 'required',
             'trayek' => 'required',
             'id_terminal' => 'required',
@@ -152,7 +154,7 @@ class KedatanganController extends Controller
             ]);
             return response()->json([
                 'success' => true,
-                'messaage' => 'Data Updated',
+                'message' => 'Data Updated',
                 'data' => $kedatangan
             ]);
             //respnse json

@@ -158,8 +158,11 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user-api', 'scopes:user
     function () {
         // authenticated staff routes here 
         //Route::get('dashboard', [OperatorController::class, 'operatorDashboard']);
-
+    // Route::get('/operatorprofile', [OperatorController::class, 'index']);
         //kedatangan
+
+    Route::post('/resetpassword/{id}', [OperatorController::class, 'resetPassword']);
+
     Route::get('/allkedatangan', [KedatanganController::class, 'index']);
     // Route::get('/kedatangan/{id}', [KedatanganController::class, 'show']);
     Route::middleware('auth:user-api')->get('/kedatangan', [KedatanganController::class, 'show']);
