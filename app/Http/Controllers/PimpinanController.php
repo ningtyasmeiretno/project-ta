@@ -140,5 +140,28 @@ class PimpinanController extends Controller
             'message' => 'User Dinas not found'
         ]);
     }
+
+    public function resetPassword(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|confirmed'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $pimpinan = Pimpinan::find($id);
+        $pimpinan->update([
+            'password'  => Hash::make($request->password)
+        ]);
+
+        //return with response JSON
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Password Berhasil Diupdate!',
+            'data'    => $pimpinan,
+        ], 201);
+    }
 }
 

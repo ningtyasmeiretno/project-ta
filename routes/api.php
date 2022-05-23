@@ -94,6 +94,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
     Route::post('/pimpinan', [PimpinanController::class, 'store']);
     Route::post('/pimpinan/{id}', [PimpinanController::class, 'update']);
     Route::delete('/pimpinan/{id}', [PimpinanController::class, 'destroy']);
+    Route::post('/pimpinan/resetpassword/{id}', [PimpinanController::class, 'resetPassword']);
 
     //data Kota
     Route::get('/kota', [KotaController::class, 'index']);
@@ -201,11 +202,51 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user-api', 'scopes:user
     Route::get('/perusahaans', [PerusahaanController::class, 'countData']);
 
         //UPT
-        Route::get('/unitpelaksanas', [UnitPelaksanaController::class, 'countData']);
-
-
+    Route::get('/unitpelaksanas', [UnitPelaksanaController::class, 'countData']);
 });
 
+//Scope DINAS
+Route::group(['prefix' => 'pimpinan', 'middleware' => ['auth:pimpinan-api']],
+    function () {
+        // authenticated staff routes here 
+        Route::get('dashboard', [PimpinanController::class, 'pimpinanDashboard']);
+    // Route::get('/operatorprofile', [OperatorController::class, 'index']);
+        //kedatangan
+
+    Route::post('/resetpassword/{id}', [PimpinanController::class, 'resetPassword']);
+
+    Route::get('/allkedatangan', [KedatanganController::class, 'index']);
+    
+
+        //keberangkatan
+    Route::get('/allkeberangkatan', [KeberangkatanController::class, 'index']);
+    
+
+    Route::get('/kendaraan', [KendaraanController::class, 'index']);
+    Route::get('/kendaraan/{id}', [KendaraanController::class, 'show']);
+    Route::post('/kendaraan', [KendaraanController::class, 'store']);
+    Route::post('/kendaraan/{id}', [KendaraanController::class, 'update']);
+    Route::delete('/kendaraan/{id}', [KendaraanController::class, 'destroy']);
+
+    //terminal
+    Route::get('/terminal', [TerminalController::class, 'index']);
+    Route::get('/terminal/{id}', [TerminalController::class, 'show']);
+    Route::post('/terminal', [TerminalController::class, 'store']);
+    Route::post('/terminal/{id}', [TerminalController::class, 'update']);
+    Route::delete('/terminal/{id}', [TerminalController::class, 'destroy']);
+    Route::get('/terminals', [TerminalController::class, 'countData']);
+
+    //route perusahaan
+    Route::get('/perusahaan', [PerusahaanController::class, 'index']);
+    Route::get('/perusahaan/{id}', [PerusahaanController::class, 'show']);
+    Route::post('/perusahaan', [PerusahaanController::class, 'store']);
+    Route::post('/perusahaan/{id}', [PerusahaanController::class, 'update']);
+    Route::delete('/perusahaan/{id}', [PerusahaanController::class, 'destroy']);
+    Route::get('/perusahaans', [PerusahaanController::class, 'countData']);
+
+        //UPT
+    Route::get('/unitpelaksanas', [UnitPelaksanaController::class, 'countData']);
+});
 
 Route::post('/register', [RegisterController::class, 'register']);
 // Route::post('/admin/register', [RegisterAdminController::class, 'register']);
