@@ -203,6 +203,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:user-api', 'scopes:user
 
         //UPT
     Route::get('/unitpelaksanas', [UnitPelaksanaController::class, 'countData']);
+
+    
 });
 
 //Scope DINAS
@@ -246,6 +248,17 @@ Route::group(['prefix' => 'pimpinan', 'middleware' => ['auth:pimpinan-api']],
 
         //UPT
     Route::get('/unitpelaksanas', [UnitPelaksanaController::class, 'countData']);
+    Route::get('/kota', [KotaController::class, 'index']);
+
+    Route::get('/terminal', [TerminalController::class, 'index']);
+    Route::get('/unitpelaksana', [UnitPelaksanaController::class, 'index']);
+    Route::get('/angkutan', [JenisAngkutanController::class, 'index']);
+
+     Route::get('/operator', [OperatorController::class, 'index']);
+    Route::get('/operator/{id}', [OperatorController::class, 'show']);
+    Route::post('/operator', [OperatorController::class, 'store']);
+    Route::post('/operator/{id}', [OperatorController::class, 'update']);
+    Route::delete('/operator/{id}', [OperatorController::class, 'destroy']);
 });
 
 Route::post('/register', [RegisterController::class, 'register']);
